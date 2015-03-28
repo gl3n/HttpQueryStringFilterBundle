@@ -30,7 +30,7 @@ class ParameterTypeChain
      *
      * @return ParameterTypeInterface
      */
-    public function getType($typeName)
+    public function getParameterType($typeName)
     {
         return $this->parameterTypes[$typeName];
     }
