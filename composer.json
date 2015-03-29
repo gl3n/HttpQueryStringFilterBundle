@@ -1,0 +1,24 @@
+{
+    "name": "gl3n/http-query-string-filter-bundle",
+    "type": "symfony-bundle",
+    "description" : "Easy validation, casting and authorization of HTTP query string parameters",
+    "keywords": ["http", "query", "parameter", "validation", "cast", "casting", "authorization"],
+    "authors": [
+        {
+            "name": "Glen Jaguin",
+            "email": "glen.jaguin@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "symfony/symfony": "~2.4"
+    },
+    "require-dev": {
+        "atoum/atoum":      "@stable",
+        "phpspec/prophecy": "~1.0"
+    },
+    "autoload": {
+        "psr-0": { "Gl3n\\HttpQueryStringFilterBundle\\": "" }
+    },
+    "target-dir": "Gl3n/HttpQueryStringFilterBundle"
+}
