@@ -31,6 +31,8 @@ class Caster
      *
      * @param array        $options
      * @param string|array $value
+     *
+     * @return mixed
      */
     public function cast(array $options, $value)
     {

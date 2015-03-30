@@ -5,6 +5,9 @@ namespace Gl3n\HttpQueryStringFilterBundle;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
+/**
+ * Calls authorization checker, validator and caster to filter the query
+ */
 class Filter
 {
     /**

@@ -38,7 +38,7 @@ class Validator
             throw new \InvalidArgumentException(sprintf('Parameter "%s" must be an array', $name));
         }
 
-        foreach ((array) $value as $itemValue) {
+        foreach ($value as $itemValue) {
             $regExp = isset($options['reg_exp']) ? $options['reg_exp'] : $this->parameterTypeChain->getParameterType($options['type'])->getDefaultRegExp();
 
             if (1 !== preg_match(sprintf('/%s/', $regExp), $itemValue)) {

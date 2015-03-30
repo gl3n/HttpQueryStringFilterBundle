@@ -27,7 +27,9 @@ class Gl3nHttpQueryStringFilterExtension extends Extension
         foreach (array_keys($filters) as $filterName) {
             $filters[$filterName]['params'] = self::_resolveIncludedParameters($filters, $filterName);
         }
-        $filters = array_map(function($v) { return $v['params']; }, $filters);
+        $filters = array_map(function($v) {
+            return $v['params'];
+        }, $filters);
 
         $container->setParameter('gl3n_http_query_string_filter.config.filters', $filters);
 

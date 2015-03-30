@@ -38,7 +38,7 @@ class Validator extends atoum\test
      */
     public function test_validate_valueMustBeAnArray()
     {
-       $validator = new \Gl3n\HttpQueryStringFilterBundle\Validator($this->_getParameterTypeChainMock());
+        $validator = new \Gl3n\HttpQueryStringFilterBundle\Validator($this->_getParameterTypeChainMock());
         $this
             ->exception(
                 function() use ($validator) {
