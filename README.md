@@ -1,4 +1,4 @@
-# HttpQueryStringFilterBundle
+# HttpQueryStringFilterBundle [![Build Status](https://travis-ci.org/gl3n/HttpQueryStringFilterBundle.svg?branch=master)](https://travis-ci.org/gl3n/HttpQueryStringFilterBundle)
 
 Easy **validation**, **casting** and **authorization** of HTTP query string parameters.
 
