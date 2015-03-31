@@ -4,6 +4,7 @@ namespace Gl3n\HttpQueryStringFilterBundle;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Calls authorization checker, validator and caster to filter the query
@@ -58,6 +59,7 @@ class Filter
     {
         $expectedParams = $this->filters[$filterName];
 
+        // Given parameters
         foreach ($bag->all() as $name => $value) {
             if (!isset($expectedParams[$name])) {
                 throw new \InvalidArgumentException(sprintf('Unknow parameter "%s"', $name));
@@ -65,10 +67,15 @@ class Filter
 
             $options = $expectedParams[$name];
 
+            if (0 < count($options['roles']) && !$this->authorizationChecker->isGranted($options['roles'])) {
+                throw new AccessDeniedException(sprintf('User has not the required role to use "%s" parameter', $name));
+            }
+
             $this->validator->validate($name, $options, $value);
             $bag->set($name, $this->caster->cast($options, $value));
         }
 
+        // Expected parameters
         foreach ($expectedParams as $name => $options) {
             Validator::checkMissingParameter($name, $options, $bag);
 
