@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Filter -->
+        <service id="gl3n_http_query_string_filter.validator" class="Gl3n\HttpQueryStringFilterBundle\Validator">
+            <argument type="service" id="gl3n_http_query_string_filter.parameter_type_chain"/>
+        </service>
+        <service id="gl3n_http_query_string_filter.caster" class="Gl3n\HttpQueryStringFilterBundle\Caster">
+            <argument type="service" id="gl3n_http_query_string_filter.parameter_type_chain"/>
+        </service>
+        <service id="gl3n_http_query_string_filter.filter" class="Gl3n\HttpQueryStringFilterBundle\Filter">
+            <argument type="service" id="security.authorization_checker"/>
+            <argument type="service" id="gl3n_http_query_string_filter.validator"/>
+            <argument type="service" id="gl3n_http_query_string_filter.caster"/>
+            <argument>%gl3n_http_query_string_filter.config.filters%</argument>
+        </service>
+
+        <!-- Event listener -->
+        <service id="gl3n_http_query_string_filter.event_listener" class="Gl3n\HttpQueryStringFilterBundle\EventListener\HttpQueryStringFilterListener">
+            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController"/>
+            <argument type="service" id="annotation_reader"/>
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="gl3n_http_query_string_filter.filter"/>
+        </service>
+
+        <!-- Parameter types -->
+        <service id="gl3n_http_query_string_filter.parameter_type_chain" class="Gl3n\HttpQueryStringFilterBundle\ParameterType\ParameterTypeChain"></service>
+        <service id="gl3n_http_query_string_filter.parameter_type.string" class="Gl3n\HttpQueryStringFilterBundle\ParameterType\StringParameterType">
+            <tag name="gl3n_http_query_string_filter.parameter_type" type="string" />
+        </service>
+        <service id="gl3n_http_query_string_filter.parameter_type.boolean" class="Gl3n\HttpQueryStringFilterBundle\ParameterType\BooleanParameterType">
+            <tag name="gl3n_http_query_string_filter.parameter_type" type="boolean" />
+        </service>
+        <service id="gl3n_http_query_string_filter.parameter_type.integer" class="Gl3n\HttpQueryStringFilterBundle\ParameterType\IntegerParameterType">
+            <tag name="gl3n_http_query_string_filter.parameter_type" type="integer" />
+        </service>
+    </services>
+
+</container>
