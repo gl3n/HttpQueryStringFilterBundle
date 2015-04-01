@@ -23,7 +23,7 @@ gl3n_http_query_string_filter:
         list:
             params:
                 size: { type: string, reg_exp: '^s|m|l$', default: 's' }
-        post_list:
+        blog_post_list:
             include: [list]
             params:
                 userId:  { type: integer }
@@ -33,7 +33,7 @@ gl3n_http_query_string_filter:
 
 A filter has parameters (``params`` node). It can also include other filters' parameters (``include`` node).
 
-### Parameter configuration
+### 2.1. Parameter configuration
 
 Each parameter configuration has 6 options :
 
@@ -46,28 +46,49 @@ Each parameter configuration has 6 options :
 | ``array``    | no       | Boolean that indicates wheter expected parameter value is an array *(default is false)* |
 | ``roles``    | no       | An array of security roles allowed to use this parameter *(default is an empty array)*              |
 
-#### Default value in the case of array parameters
+#### Parameter types
 
-In this special case, default value is evaluated through Symfony **Expression Language** component. Then if the result in an array : each value is casted depending on the configured parameter type.
-
-You can see an example of this case in the sample configuration above.
-
-## 3. Parameter types
-
-### Definition
+##### Definition
 
 A parameter type defines :
 
 1. how the **value** (or the **values** in the case of a parameter configured as an array) will be **casted**,
 2. the **default regular expression**.
 
-### Reference
+##### Reference
 
 | Type        | Cast to     | Default reg exp  |
 |-------------|-------------|------------------|
 | **string**  | PHP string  | ``^.+$``         |
 | **boolean** | PHP boolean | ``^true|false$`` |
 | **integer** | PHP integer | ``^\d+$``        |
+
+#### Default value in the case of array parameters
+
+In this special case, default value is evaluated through Symfony **Expression Language** component. Then if the result in an array : each value is casted depending on the configured parameter type.
+
+You can see an example of this case in the sample configuration above.
+
+## 3. Usage
+
+Add a query string filter on an action thanks to the **annotation** :
+
+```php
+use Gl3n\HttpQueryStringFilterBundle\Annotation\HttpQueryStringFilter;
+// ...
+
+class BlogPostController
+{
+    /**
+     * @HttpQueryStringFilter(name="blog_post_list")
+     */
+    public function listAction(Request $request)
+    {
+        // Now your request query is filtered
+        $parameters = $request->query->all();
+    }
+}
+```
 
 ## 4. How to write a custom parameter type
 
