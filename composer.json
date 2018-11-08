@@ -11,7 +11,8 @@
     ],
     "require": {
         "php": ">=5.4",
-        "symfony/symfony": "~2.4|~3.0|~4.0"
+        "symfony/framework-bundle": "~2.4|~3.0|~4.0",
+        "symfony/expression-language": "~2.4|~3.0|~4.0"
     },
     "require-dev": {
         "atoum/atoum":      "@stable",
