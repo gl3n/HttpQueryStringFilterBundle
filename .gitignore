@@ -1,3 +1,4 @@
 vendor
 composer.lock
 sftp-config.json
+.idea
